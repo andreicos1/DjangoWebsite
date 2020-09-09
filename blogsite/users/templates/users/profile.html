@@ -1,0 +1,50 @@
+{% extends 'users/users_base.html' %}
+
+{% block users_content %}
+<div class="container">
+
+  <h1>{{this_user.username}}'s profile</h1>
+  {% if this_user.profile.image %}
+  <img class="profile_pic" src="{{this_user.profile.image.url}}" alt="My image"
+  width="800px" height="400px"> {% endif %}
+  <br>
+  <strong><p>{{this_user.first_name}} {{this_user.last_name}}</p></strong>
+  {% if this_user.email %} Email: <strong>
+    {{this_user.email|linebreaks}}</strong>{% endif %}
+  {% if this_user.profile.bio %}Bio: <strong>
+    {{this_user.profile.bio|linebreaks}}</strong>{% endif %}
+  {% if this_user.profile.location %}Location: <strong>
+    {{this_user.profile.location|linebreaks}} </strong>{% endif %}
+  {% if this_user.profile.birth_date %} Birth date:<strong>
+    {{this_user.profile.birth_date|linebreaks}}</strong>{% endif %}
+
+
+    {% if user.username == this_user.username %}
+      <a href="{% url 'users:update_profile' %}">Update Profile</a>
+    {% endif %}
+
+</div>
+<hr>
+<div class="container">
+
+  <h5>last 5 comments:</h5>
+  <ul>
+    {% for comment in this_user.comment_set.filter|slice:":5" %}
+    {% if comment.active %}
+    <li><a href="{% url 'posts:detail' comment.post.slug %}">
+        {{comment.text|linebreaks}}</a></li>
+    {% else %}
+    <li>Comment awaiting approval</li>
+    {% endif %}
+    {% endfor %}
+  </ul>
+
+  <a href="{% url 'users:comments' this_user.pk %}"><h4>
+    See all comments</h4></a>
+</div>
+<br>
+
+
+
+  </div>
+{% endblock %}

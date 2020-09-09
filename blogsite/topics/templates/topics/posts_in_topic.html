@@ -1,0 +1,40 @@
+{% extends 'topics/topics_base.html' %}
+
+{% block topic %}
+<div class="container">
+  {% if posts_list.post_set.all %}
+  <h1>{{posts_list.name}}</h1>
+
+  <div class="row">
+    {% for post in posts_list.post_set.all %}
+      <div class="thumbnail col-md-6 col-lg-4">
+        <div class="thumbnail-title">
+          <a href="{% url 'posts:detail' slug=post.slug %}">
+            <h5>{{post}}</h5></a>
+          </div>
+        <div class="thumbnail-topic">
+          <a href="{% url 'topics:detail' slug=post.topic.slug %}">
+            Posted in {{post.topic}}</a>
+          </div>
+          {% if post.image %}
+            <a href="{% url 'posts:detail' slug=post.slug %}">
+              <img src="{{post.image.url}}" alt="My image" width="350px"
+                height="250px"></a>
+            <br>
+          {% endif %}
+          <div class="thumbnail-footer">
+            <i>Added on: {{post.pub_date}}</i>
+            <br>
+            <i><strong>Comments: {{ post.comment_set.count }}</strong></i>
+          </div>
+      </div>
+  {% endfor %}
+
+  {% else %}
+  <h2>No posts yet in this topic.</h2>
+
+  {% endif %}
+
+</div>
+</div>
+{% endblock %}

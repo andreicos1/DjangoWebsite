@@ -1,0 +1,62 @@
+h1{
+  color:#006d77;
+}
+
+h2{
+  color:#83c5be;
+}
+
+a{
+  color:black;
+  text-decoration: underline;
+}
+
+body{
+  font-family: 'Noto Serif', serif;
+  background-color: #f1faee;
+}
+
+.mynavclass{
+  font-family: 'Poppins', sans-serif;
+}
+
+.login{
+  margin: 30px;
+  border: solid #edf6f9 2px;
+  padding: 25px;
+  width:500px;
+}
+
+.login_button{
+  background-color: #008CBA;
+  border-radius: 8px;
+  color: black;
+}
+
+.user_info{
+  background-color: #d8e2dc;
+}
+
+.username{
+  font-size: 1.5em;
+}
+
+.profile_pic{
+  height:20%;
+  width:70%;
+}
+
+.thumbnail{
+  padding: 10px;
+}
+
+
+.thumbnail-topic{
+}
+
+
+.thumbnail-footer{
+}
+
+.thumbnail-title{
+}

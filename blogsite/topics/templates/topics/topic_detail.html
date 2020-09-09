@@ -1,0 +1,33 @@
+{% extends 'topics/topics_base.html' %}
+{% load static %}
+
+{% block topic %}
+<div class="container">
+  <h1>{{topic.name|linebreaks}}</h1>
+  {% if topic.image %}<img src="{{topic.image.url}}"
+      alt="Error displaying image" width =800px height=500px>{% endif %}
+  <p>Published on {{topic.added_date}}</p>
+  <br>
+<h5>{{topic.details}}<br></h5>
+</div>
+
+<hr>
+<div class="container">
+<strong>Last posts: </strong>
+<br>
+<br>
+{% for post in topic.post_set.all %}
+  <a href="{% url 'posts:detail' post.slug %}">{{post}}</a>
+  <br>
+  <p><i>{{post.pub_date}}</p></i>
+{% endfor %}
+</div>
+<hr>
+<div class="container">
+<a href="{% url 'topics:list_of_posts' topic.slug %}">See all posts in this topic</a>
+<br>
+</div>
+<br>
+
+</div>
+{% endblock %}

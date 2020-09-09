@@ -1,0 +1,24 @@
+{% extends 'posts/posts_base.html' %}
+
+{% block post_content %}
+<div class="container">
+<br>
+Author: <a href="{% url 'users:profile' comment.commenter.pk %}">{{comment.commenter}}</a>
+<p><i>Submitted on: {{comment.submited_on}}</i>
+<strong>{{comment.text|linebreaks}}</strong>
+</div>
+<hr>
+<div class ="container">
+{% if user and user == comment.commenter or user.is_superuser %}
+<h2>Confirm comment deletion</h2>
+
+<form method="post" action="{% url 'posts:delete_comment' comment.id %}">
+  {% csrf_token %}
+  <input type="hidden" name="next" value="{{ request.GET.next }}">
+  <input type="submit" class="btn btn-danger" value="Confirm Delete" name ='Delete'>
+</form>
+{% else %}
+<h1>You do not have permission to delete this comment</h1>
+{% endif %}
+</div>
+{% endblock %}

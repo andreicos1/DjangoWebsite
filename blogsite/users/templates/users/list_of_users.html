@@ -1,0 +1,28 @@
+{% extends 'users/users_base.html' %}
+
+{% block users_content %}
+
+  <div class="container user_info">
+    <h1>Registered Users</h1>
+    <hr>
+    {% for user in user_list %}
+      <div class="row">
+      {% if user.profile.image %}
+      <div class="col">
+    <img src="{{user.profile.image.url}}" alt="Error displaying image"
+      height=300px width=400px>
+    </div>
+    {% endif %}
+
+    <div class="col">
+    <a class="username" href="{% url 'users:profile' user.pk %}">
+      {{user.username|linebreaks}}</a>
+      <p><i>Joined on {{user.date_joined}}</i></p>
+      <p><strong>{{user.email}}</strong></p>
+      <p>{{user.profile.bio}}</p>
+    </div>
+  </div>
+  <hr>
+  {% endfor %}
+  </div>
+{% endblock %}

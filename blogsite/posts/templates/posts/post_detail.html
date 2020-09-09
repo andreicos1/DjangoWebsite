@@ -1,0 +1,60 @@
+{% extends 'posts/posts_base.html' %}
+
+{% block post_content %}
+<div class="container">
+
+  <h1>{{post.title}}</h1>
+  <h2>{{post.topic}}</h2>
+  {% if post.image %}
+  <img src="{{post.image.url}}" alt="My image" width="800px" height="400px">
+  {% endif %}
+  <br>
+  {{post.post_text_html}}
+  <br>
+</div>
+<hr>
+
+ <div class="container">
+ {% for comment in comments %}
+<ol class ="list-group">
+   <li class="list-group-item">
+    <div class="date"><i>{{ comment.submited_on }}</i></div>
+     <a href="{% url 'users:profile' comment.commenter.pk %}">{{comment.commenter}}</a>
+    <p>{{ comment.text|linebreaks}}</p>
+</li>
+
+
+   {% if user and user == comment.commenter %}
+    <a href="{% url 'posts:delete_comment' comment.pk %}?next={{ request.path|urlencode }}">Delete Comment</a>
+  {% endif %}
+<br>
+{% empty %}
+  <p>No comments yet</p>
+
+{% endfor %}
+
+</ol>
+
+</div>
+
+<hr>
+ <div class="container">
+  {% if new_comment %}
+    <h2>Your comment is awaiting approval</h2>
+  {% endif %}
+{% if user.is_authenticated %}
+  <h1>New comment</h1>
+  <form class=""  method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input class="btn btn-primary" type="submit" value="Submit">
+  </form>
+{% else %}
+  <a href="{% url 'users:login' %}"><h1>
+    Please log in or sign up to post a comment</h1></a>
+{% endif %}
+</div>
+
+
+
+{% endblock %}

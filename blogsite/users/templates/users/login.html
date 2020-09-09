@@ -1,0 +1,16 @@
+{% extends 'users/users_base.html' %}
+{% load static %}
+{% block users_content %}
+
+<link rel="stylesheet" href="{% static 'css/master.css' %}">
+
+<div class="container" align="center">
+<form class="login" method="post">
+  {% csrf_token %}
+  {{form.as_p}}
+  <input class="btn btn-primary login_button" data-toggle="button" type="submit" value="Log In">
+</div>
+</form>
+
+</div>
+{% endblock %}

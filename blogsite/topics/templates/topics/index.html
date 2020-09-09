@@ -1,0 +1,15 @@
+{% extends 'topics/topics_base.html' %}
+
+{% block topic %}
+
+<div class="container">
+{% for topic in topic_list %}
+<a href="{% url 'topics:detail' topic.slug %}"><h1>{{topic.name}}</h1></a>
+  {% if topic.image %}<img src="{{topic.image.url}}" alt="" width=600px
+    height = 400px>{% endif %}
+  <p>Added on {{topic.added_date}}</p>
+  Posts: {{topic.post_set.count}}
+{% endfor %}
+</div>
+
+{% endblock %}
